@@ -12,9 +12,9 @@
     </div>
     {% endif %}
     <!-- 질문 -->
-    <h2 class="border-bottom py-2">{{ Product.subject }}</h2>
+    <h2 class="border-bottom py-2">{{ Product.name }}</h2>
     {% if Product.image %}
-    <img src="{{ Product.image.url }}" style="width:250px; height:250px" alt="{{ Product.subject }}" class="my-3">
+    <img src="{{ Product.image.url }}" style="width:250px; height:250px" alt="{{ Product.name }}" class="my-3">
     {% endif %}
     <div class="card my-3">
         <div class="card-body">
