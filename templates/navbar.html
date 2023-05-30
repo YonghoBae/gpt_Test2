@@ -1,30 +1,33 @@
-<!-- 네비게이션바 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'pybo:index' %}">중고장터</a>
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
-                    {% else %}
-                    <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
-                    {% endif %}
-                </li>
-                <li>
-                    {% if not user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'common:signup' %}">회원가입</a>
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
+<nav class="navbar navbar-dark bg-primary fixed-top">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#" style="margin-left:20px;margin-right:auto;"><strong>충대마켓</strong></a>
+    {% if user.is_authenticated %}
+    <a class="nav-link" href="#" style="color:white;">로그아웃</a>
+    {% else %}
+    <a class="nav-link" href="#" style="color:white;">로그인</a>
+    <a class="nav-link" href="#" style="color:white;">회원가입</a>
+    {% endif %}
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="어떤 상품을 찾으시나요?" aria-label="Search" style="width:350px;">
+      <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">전체 카테고리</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"">
+            {% for category in category %}
+          <a class="nav-link active" aria-current="page" href="#" style="color:black;">{{ category.description }}</a>
+            {% endfor %}
+          </li>
+        </ul>
+      </div>
     </div>
+  </div>
 </nav>
