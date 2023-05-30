@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% load pybo_filter %}
+{% load market_filter %}
 {% load time_since %}
 {% block content %}
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-6">
-            <a href="{% url 'pybo:Product_create' %}" class="btn btn-primary">질문 등록하기</a>
+            <a href="{% url 'market:Product_create' %}" class="btn btn-primary">제품등록</a>
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -25,14 +25,14 @@
                     <div class="item">
                         <div class="card" style="width: 18rem;">
                             {% if Product.image %}
-                                <a href="{% url 'pybo:detail' Product.id %}">
+                                <a href="{% url 'market:detail' Product.id %}">
                                     <img src="{{ Product.image.url }}" style="width:250px; height:250px" alt="{{ Product.subject }}" class="my-3">
                                 </a>
                             {% endif %}
                         </div>
                         <div class="card" style="width: 18rem;">
                             <h4 class="title">
-                                <a href="{% url 'pybo:detail' Product.id %}">{{ Product.subject }}</a>
+                                <a href="{% url 'market:detail' Product.id %}">{{ Product.subject }}</a>
                             </h4>
                             <p class="price">가격: {{ Product.price }}</p>
                             <p class="user">판매자: {{ Product.seller.username }}</p>
