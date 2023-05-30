@@ -40,7 +40,7 @@ class Comment(models.Model):
 
 class ProductCount(models.Model):
     ip = models.CharField(max_length=30)
-    question = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.ip

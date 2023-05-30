@@ -12,75 +12,75 @@
     </div>
     {% endif %}
     <!-- 질문 -->
-    <h2 class="border-bottom py-2">{{ Product.name }}</h2>
-    {% if Product.image %}
-    <img src="{{ Product.image.url }}" style="width:250px; height:250px" alt="{{ Product.name }}" class="my-3">
+    <h2 class="border-bottom py-2">{{ product.name }}</h2>
+    {% if product.image %}
+    <img src="{{ product.image.url }}" style="width:250px; height:250px" alt="{{ product.name }}" class="my-3">
     {% endif %}
     <div class="card my-3">
         <div class="card-body">
-            <div class="card-text">{{ Product.content|mark }}</div>
+            <div class="card-text">{{ product.content|mark }}</div>
                 <div class="d-flex justify-content-end">
-                    {% if Product.modify_date %}
+                    {% if product.modify_date %}
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
-                    <div>{{ Product.modify_date }}</div>
+                    <div>{{ product.modify_date }}</div>
                 </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">{{ Product.seller.username }}</div>
-                    <div>{{ Product.create_date }}</div>
+                    <div class="mb-2">{{ product.seller.username }}</div>
+                    <div>{{ product.create_date }}</div>
                 </div>
             </div>
             <div class="my-3">
-                <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' Product.id  %}"
+                <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' product.id  %}"
                     class="recommend btn btn-sm btn-outline-secondary"> 추천
-                     <span class="badge rounded-pill bg-success">{{Product.voter.count}}</span>
+                     <span class="badge rounded-pill bg-success">{{product.voter.count}}</span>
                 </a>
-                {% if request.user == Product.seller %}
-                <a href="{% url 'market:Product_modify' Product.id  %}"
+                {% if request.user == product.seller %}
+                <a href="{% url 'market:Product_modify' product.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
                 <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                   data-uri="{% url 'market:Product_delete' Product.id  %}">삭제</a>
+                   data-uri="{% url 'market:Product_delete' product.id  %}">삭제</a>
                 {% endif %}
             </div>
         </div>
     </div>
     <!-- 답변 -->
-    <h5 class="border-bottom my-3 py-2">{{Product.Comment_set.count}}개의 답변이 있습니다.</h5>
-    {% for Comment in Product.Comment_set.all %}
-    <a id="Comment_{{ Comment.id }}"></a>
+    <h5 class="border-bottom my-3 py-2">{{product.comment_set.count}}개의 답변이 있습니다.</h5>
+    {% for comment in product.comment_set.all %}
+    <a id="comment_{{ comment.id }}"></a>
     <div class="card my-3">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ Comment.content }}</div>
+            <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
             <div class="d-flex justify-content-end">
-                 {% if Comment.modify_date %}
+                 {% if comment.modify_date %}
                 <div class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">modified at</div>
-                    <div>{{ Comment.modify_date }}</div>
+                    <div>{{ comment.modify_date }}</div>
                 </div>
                 {% endif %}
                 <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">{{Comment.author.username}}</div>
-                    <div>{{ Comment.create_date }}</div>
+                    <div class="mb-2">{{comment.buyer.username}}</div>
+                    <div>{{ comment.create_date }}</div>
                 </div>
             </div>
             <div class="my-3">
-                <a href="javascript:void(0)" data-uri="{% url 'market:Comment_vote' Comment.id  %}"
+                <a href="javascript:void(0)" data-uri="{% url 'market:Comment_vote' comment.id  %}"
                     class="recommend btn btn-sm btn-outline-secondary"> 추천
-                     <span class="badge rounded-pill bg-success">{{Comment.voter.count}}</span>
+                     <span class="badge rounded-pill bg-success">{{comment.voter.count}}</span>
                 </a>
-                {% if request.user == Comment.author %}
-                <a href="{% url 'market:Comment_modify' Comment.id  %}"
+                {% if request.user == comment.buyer %}
+                <a href="{% url 'market:Comment_modify' comment.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
                 <a href="#" class="delete btn btn-sm btn-outline-secondary "
-                   data-uri="{% url 'market:Comment_delete' Comment.id  %}">삭제</a>
+                   data-uri="{% url 'market:Comment_delete' comment.id  %}">삭제</a>
                 {% endif %}
             </div>
         </div>
     </div>
     {% endfor %}
     <!-- 답변 등록 -->
-    <form action="{% url 'market:Comment_create' Product.id %}" method="post" class="my-3">
+    <form action="{% url 'market:Comment_create' product.id %}" method="post" class="my-3">
         {% csrf_token %}
         <!-- 오류표시 Start -->
         {% if form.errors %}
