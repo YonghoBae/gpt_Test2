@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load pybo_filter %}
+{% load market_filter %}
 {% block content %}
 <div class="container my-3">
     <!-- message 표시 -->
@@ -32,15 +32,15 @@
                 </div>
             </div>
             <div class="my-3">
-                <a href="javascript:void(0)" data-uri="{% url 'pybo:Product_vote' Product.id  %}"
+                <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' Product.id  %}"
                     class="recommend btn btn-sm btn-outline-secondary"> 추천
                      <span class="badge rounded-pill bg-success">{{Product.voter.count}}</span>
                 </a>
                 {% if request.user == Product.seller %}
-                <a href="{% url 'pybo:Product_modify' Product.id  %}"
+                <a href="{% url 'market:Product_modify' Product.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
                 <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                   data-uri="{% url 'pybo:Product_delete' Product.id  %}">삭제</a>
+                   data-uri="{% url 'market:Product_delete' Product.id  %}">삭제</a>
                 {% endif %}
             </div>
         </div>
@@ -65,22 +65,22 @@
                 </div>
             </div>
             <div class="my-3">
-                <a href="javascript:void(0)" data-uri="{% url 'pybo:Comment_vote' Comment.id  %}"
+                <a href="javascript:void(0)" data-uri="{% url 'market:Comment_vote' Comment.id  %}"
                     class="recommend btn btn-sm btn-outline-secondary"> 추천
                      <span class="badge rounded-pill bg-success">{{Comment.voter.count}}</span>
                 </a>
                 {% if request.user == Comment.author %}
-                <a href="{% url 'pybo:Comment_modify' Comment.id  %}"
+                <a href="{% url 'market:Comment_modify' Comment.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
                 <a href="#" class="delete btn btn-sm btn-outline-secondary "
-                   data-uri="{% url 'pybo:Comment_delete' Comment.id  %}">삭제</a>
+                   data-uri="{% url 'market:Comment_delete' Comment.id  %}">삭제</a>
                 {% endif %}
             </div>
         </div>
     </div>
     {% endfor %}
     <!-- 답변 등록 -->
-    <form action="{% url 'pybo:Comment_create' Product.id %}" method="post" class="my-3">
+    <form action="{% url 'market:Comment_create' Product.id %}" method="post" class="my-3">
         {% csrf_token %}
         <!-- 오류표시 Start -->
         {% if form.errors %}
