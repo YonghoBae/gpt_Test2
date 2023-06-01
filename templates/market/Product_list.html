@@ -17,7 +17,7 @@
         </div>
     </div>
     <hr>
-    <h1>최근 올라온 상품</h1>
+    <h2>최근 올라온 상품</h2>
     <div class="row">
         {% if Product_list %}
             {% for Product in Product_list %}
@@ -34,9 +34,9 @@
                             <h4 class="title">
                                 <a href="{% url 'market:detail' Product.id %}">{{ Product.subject }}</a>
                             </h4>
-                            <p class="price">가격: {{ Product.price }}</p>
-                            <p class="user">판매자: {{ Product.seller.username }}</p>
-                            <p>{{ Product.create_date|time_since }}</p>
+                            <p class="name">{{ Product.name }}</p>
+                            {{ Product.price }}원
+                            <a style="text-align:right">{{ Product.create_date|time_since }}</a>
                             <p class="view">조회수:
                                 {% if Product.view_count > 0 %}
                                     <span class="text-danger small mx-2">{{ Product.view_count }}</span>

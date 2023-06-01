@@ -31,7 +31,7 @@ class Product(models.Model):
 
 class Comment(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_answer')
-    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
