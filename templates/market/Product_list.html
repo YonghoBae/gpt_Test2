@@ -7,40 +7,30 @@
         <div class="col-6">
             <a href="{% url 'market:Product_create' %}" class="btn btn-primary">제품등록</a>
         </div>
-        <div class="col-6">
-            <div class="input-group">
-                <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-                </div>
-            </div>
-        </div>
     </div>
     <hr>
     <h2>최근 올라온 상품</h2>
     <div class="row">
         {% if Product_list %}
-            {% for Product in Product_list %}
-                <div class="col-4">
-                    <div class="item">
-                        <div class="card" style="width: 250px; height:250px;">
-                            {% if Product.image %}
-                                <a href="{% url 'market:detail' Product.id %}">
-                                    <img src="{{ Product.image.url }}" style="width:248px; height:248px;" alt="{{ Product.name }}" class="my-3">
-                                </a>
-                            {% endif %}
-                        </div>
-                        <div class="card" style="width: 250px">
-                            <p class="name">{{ Product.name }}</p>
-                            <div style="display: flex; justify-content: space-between;">
-                                <span class="price">{{ Product.price }}원</span>
-                                <span class="time" style="text-align:right">{{ Product.create_date|time_since }}</span>
-                            </div>
-                        </div>
+        {% for Product in Product_list %}
+        <div class="col-3">
+            <div class="item">
+                {% if Product.image %}
+                <a href="{% url 'market:detail' Product.id %}">
+                    <img src="{{ Product.image.url }}" style="width:200px; height:200px; border:1px solid #eaeaea; padding: 0px; border-radius: 10px;" alt="{{ Product.name }}">
+                </a>
+                {% endif %}
+                <div class="card" style="width: 200px;">
+                    <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="price" style="font-weight: 1000;">{{ Product.price }}원</span>
+                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
                     </div>
-                    <br>
                 </div>
-            {% endfor %}
+            </div>
+            <br>
+        </div>
+        {% endfor %}
         {% else %}
             <div class="col">
                 <p>제품이 없습니다.</p>
