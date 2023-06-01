@@ -23,25 +23,19 @@
             {% for Product in Product_list %}
                 <div class="col-4">
                     <div class="item">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 250px; height:250px;">
                             {% if Product.image %}
                                 <a href="{% url 'market:detail' Product.id %}">
-                                    <img src="{{ Product.image.url }}" style="width:250px; height:250px" alt="{{ Product.subject }}" class="my-3">
+                                    <img src="{{ Product.image.url }}" style="width:248px; height:248px;" alt="{{ Product.name }}" class="my-3">
                                 </a>
                             {% endif %}
                         </div>
-                        <div class="card" style="width: 18rem;">
-                            <h4 class="title">
-                                <a href="{% url 'market:detail' Product.id %}">{{ Product.subject }}</a>
-                            </h4>
+                        <div class="card" style="width: 250px">
                             <p class="name">{{ Product.name }}</p>
-                            {{ Product.price }}원
-                            <a style="text-align:right">{{ Product.create_date|time_since }}</a>
-                            <p class="view">조회수:
-                                {% if Product.view_count > 0 %}
-                                    <span class="text-danger small mx-2">{{ Product.view_count }}</span>
-                                {% endif %}
-                            </p>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span class="price">{{ Product.price }}원</span>
+                                <span class="time" style="text-align:right">{{ Product.create_date|time_since }}</span>
+                            </div>
                         </div>
                     </div>
                     <br>
