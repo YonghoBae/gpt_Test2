@@ -24,7 +24,6 @@ class Product(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)  # 이미지 필드 추가
 
-
     def __str__(self):
         return self.subject
 
@@ -44,3 +43,9 @@ class ProductCount(models.Model):
 
     def __unicode__(self):
         return self.ip
+
+
+class Address(models.Model):
+    do = models.CharField(max_length=200)  # 도/시
+    gun = models.CharField(max_length=200)  # 시/군
+    gu = models.CharField(max_length=200)  # 구/면
