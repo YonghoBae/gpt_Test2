@@ -1,5 +1,4 @@
 from django.urls import path
-
 from .views import base_views, product_views, comment_views
 
 app_name = 'market'

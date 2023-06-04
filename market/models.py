@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
 
 class Category(models.Model):
     name=models.CharField(max_length=20,unique=True)
@@ -44,7 +42,3 @@ class ProductCount(models.Model):
 
     def __unicode__(self):
         return self.ip
-
-
-class CustomUser(AbstractUser):
-    address = models.CharField(max_length=255, null=True, blank=True)
