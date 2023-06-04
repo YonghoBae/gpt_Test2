@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
 class Category(models.Model):
@@ -45,7 +46,5 @@ class ProductCount(models.Model):
         return self.ip
 
 
-class Address(models.Model):
-    do = models.CharField(max_length=200)  # 도/시
-    gun = models.CharField(max_length=200)  # 시/군
-    gu = models.CharField(max_length=200)  # 구/면
+class CustomUser(AbstractUser):
+    address = models.CharField(max_length=255, null=True, blank=True)

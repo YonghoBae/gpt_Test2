@@ -1,5 +1,6 @@
 from django import forms
-from market.models import Product, Comment
+from django.contrib.auth.forms import UserCreationForm
+from .models import Product, Comment, CustomUser
 
 
 class ProductForm(forms.ModelForm):
@@ -21,3 +22,9 @@ class CommentForm(forms.ModelForm):
         labels = {
             'content': '댓글',
         }
+
+
+class UserForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ["username", "password1", "password2", "email", "address"]
