@@ -60,4 +60,4 @@ def Product_vote(request, product_id):
         messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
     else:
         product.voter.add(request.user)
-    return redirect('market:detail', producgt_id=product.id)
+    return redirect('market:detail', product_id=product.id)
