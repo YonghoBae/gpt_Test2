@@ -10,6 +10,17 @@
         </div>
     </div>
     <hr>
+    {% if user.is_authenticated %}
+    <form action="{% url 'Product_favorite' product.id %}" method="POST">
+        {% csrf_token %}
+        {% if user in product.voter.all %}
+            <input type="submit" value="찜 취소">
+        {% else %}
+            <input type="submit" value="찜하기">
+        {% endif %}
+    </form>
+    {% endif %}
+
     <h2>최근 올라온 상품</h2>
     <div class="row">
         {% if Product_list %}
