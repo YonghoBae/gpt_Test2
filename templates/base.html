@@ -14,6 +14,7 @@
 <body>
 <!-- 네비게이션바 -->
 {% include "navbar.html" %}
+<a href="{% url 'market:liked_products' %}">찜한 제품 수: {{ request.user.liked_products.count }}</a>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% if user.is_authenticated %}
 {% endif %}

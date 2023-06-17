@@ -67,7 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'market.context_processor.category_context',
-                'your_app.context_processors.liked_product_count',
+                'market.context_processor.liked_product_count',
             ],
         },
     },

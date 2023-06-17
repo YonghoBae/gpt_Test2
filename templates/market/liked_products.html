@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load market_filter %}
 {% load time_since %}
@@ -10,11 +11,11 @@
         </div>
     </div>
     <hr>
-    <h2>최근 올라온 상품</h2>
+    <h2>찜한 상품</h2>
 
     <div class="row">
         {% if Product_list %}
-        {% for Product in Product_list %}
+        {% for Product in liked_products %}
         <div class="col-3">
             <div class="item">
                 {% if Product.image %}
@@ -36,7 +37,7 @@
         {% endfor %}
         {% else %}
             <div class="col">
-                <p>제품이 없습니다.</p>
+                <p>찜한 제품이 없습니다.</p>
             </div>
         {% endif %}
     </div>

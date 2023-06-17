@@ -58,18 +58,10 @@ def Product_vote(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     if request.user == product.seller:
         messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    elif request.user in product.voter.all():
+        product.voter.remove(request.user)
     else:
         product.voter.add(request.user)
-    return redirect('market:detail', product_id=product.id)
-
-
-@login_required(login_url='common:login')
-def toggle_product_like(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    if request.user in product.voters.all():
-        product.voters.remove(request.user)
-    else:
-        product.voters.add(request.user)
     return redirect('market:detail', product_id=product.id)
 
 

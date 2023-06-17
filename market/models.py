@@ -18,7 +18,7 @@ class Product(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
-    voter = models.ManyToManyField(User, related_name='voter_question')  # 추천인
+    voter = models.ManyToManyField(User, related_name='liked_products')  # 추천인
     view_count = models.IntegerField(default=0)  # 조회수 필드
     price = models.IntegerField() #가격 필드
     image = models.ImageField(upload_to='images/', null=True, blank=True)  # 이미지 필드

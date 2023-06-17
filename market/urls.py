@@ -12,7 +12,7 @@ urlpatterns = [
     path('Product/create/', product_views.Product_create, name='Product_create'),
     path('Product/modify/<int:product_id>/', product_views.Product_modify, name='Product_modify'),
     path('Product/delete/<int:product_id>/', product_views.Product_delete, name='Product_delete'),
-    path('product/<int:product_id>/favorite', product_views.Product_favorite, name='Product_favorite'),
+    path('Product/liked_products', product_views.liked_products, name='liked_products'),
 
     # comment_views.py
     path('Comment/create/<int:product_id>/', comment_views.Comment_create, name='Comment_create'),
