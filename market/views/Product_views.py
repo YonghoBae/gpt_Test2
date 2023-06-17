@@ -66,8 +66,8 @@ def Product_vote(request, product_id):
 
 
 @login_required(login_url='common:login')
-def liked_products(request):
+def liked_product(request):
     user = request.user
-    user_liked_products = user.liked_products.all()
-    context = {'liked_products': user_liked_products}
+    liked_products = user.liked_products.all()
+    context = {'liked_products': liked_products}
     return render(request, 'market/liked_products.html', context)
