@@ -7,7 +7,7 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-6">
-            <a href="{% url 'market:Product_create' %}" class="btn btn-primary">제품등록</a>
+            <a href="{% url 'market:Product_create' %}" class="btn btn-primary">상품등록</a>
         </div>
     </div>
     <hr>
@@ -15,7 +15,7 @@
 
     <div class="row">
         {% if liked_products %}
-        {% for product in liked_products %}
+        {% for Product in liked_products %}
         <div class="col-3">
             <div class="item">
                 {% if Product.image %}
@@ -27,7 +27,7 @@
                     <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
                     <div style="display: flex; justify-content: space-between;">
                         <span class="price" style="font-weight: 500;"><strong>{{ Product.price|intcomma }}원</strong></span>
-                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date }}</span>
+                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
                     </div>
                 </div>
             </div>

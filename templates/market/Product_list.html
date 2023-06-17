@@ -6,7 +6,7 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="col-6">
-            <a href="{% url 'market:Product_create' %}" class="btn btn-primary">제품등록</a>
+            <a href="{% url 'market:Product_create' %}" class="btn btn-primary">상품등록</a>
         </div>
     </div>
     <hr>
@@ -16,23 +16,22 @@
         {% if Product_list %}
         {% for Product in Product_list %}
         <div class="col-3">
-            <div class="item">
-                {% if Product.image %}
-                <a href="{% url 'market:detail' Product.id %}">
-                    <img src="{{ Product.image.url }}" style="width:200px; height:200px; border:1px solid #eaeaea; padding: 0px; border-radius: 10px;" alt="{{ Product.name }}">
-                </a>
-                {% endif %}
-                <div class="card p-1" style="width: 200px;">
-                    <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="price" style="font-weight: 500;"><strong>{{ Product.price|intcomma }}원</strong></span>
-                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
+            <a href="{% url 'market:detail' Product.id %}" style="text-decoration: none; color: inherit;">
+                <div class="item">
+                    {% if Product.image %}
+                        <img src="{{ Product.image.url }}" style="width:200px; height:200px; border:1px solid #eaeaea; padding: 0px; border-radius: 10px;" alt="{{ Product.name }}">
+                    {% endif %}
+                    <div class="card p-1" style="width: 200px;">
+                        <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="price" style="font-weight: 500;"><strong>{{ Product.price|intcomma }}원</strong></span>
+                            <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             <br>
         </div>
-
         {% endfor %}
         {% else %}
             <div class="col">
@@ -41,6 +40,7 @@
         {% endif %}
     </div>
 </div>
+
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->

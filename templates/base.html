@@ -14,8 +14,13 @@
 <body>
 <!-- 네비게이션바 -->
 {% include "navbar.html" %}
-<a href="{% url 'market:liked_products' %}">찜한 제품: {{ request.user.liked_products.count }}</a>
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<a href="{% url 'market:liked_products' %}" style="position:fixed; top:80px; right:20px; border: 1px solid #007bff; padding: 8px; border-radius: 5px; text-decoration: none; color: white; background-color: #007bff; font-size: 14px; line-height: 1.8; text-align: center; display: block;">
+    찜한상품<br>
+    <span style="color: red;">&#9829;</span>
+    {{ request.user.liked_products.count }}
+</a>
+
 {% if user.is_authenticated %}
 {% endif %}
 {% block content %}
