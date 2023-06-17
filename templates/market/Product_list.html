@@ -10,18 +10,15 @@
         </div>
     </div>
     <hr>
-    {% if user.is_authenticated %}
-    <form action="{% url 'Product_favorite' product.id %}" method="POST">
-        {% csrf_token %}
-        {% if user in product.voter.all %}
-            <input type="submit" value="찜 취소">
-        {% else %}
-            <input type="submit" value="찜하기">
-        {% endif %}
-    </form>
-    {% endif %}
-
     <h2>최근 올라온 상품</h2>
+     <p>찜한 제품 수: {{ liked_product_count }}</p>
+<a href="{% url 'market:toggle_product_like' product.id %}">
+    {% if user in product.voter.all %}
+        찜 취소
+    {% else %}
+        찜하기
+    {% endif %}
+</a>
     <div class="row">
         {% if Product_list %}
         {% for Product in Product_list %}

@@ -64,10 +64,16 @@ def Product_vote(request, product_id):
 
 
 @login_required(login_url='common:login')
-def Product_favorite(request, product_id):
+def toggle_product_like(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
-    if request.user in product.voter.all():
-        product.voter.remove(request.user)
+    if request.user in product.voters.all():
+        product.voters.remove(request.user)
     else:
-        product.voter.add(request.user)
+        product.voters.add(request.user)
     return redirect('market:detail', product_id=product.id)
+
+
+@login_required(login_url='common:login')
+def liked_products(request):
+    products = request.user.liked_products.all()
+    return render(request, 'market/liked_products.html', {'products': products})
