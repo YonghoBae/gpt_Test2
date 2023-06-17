@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load market_filter %}
 {% load time_since %}
+{% load humanize %}
 {% block content %}
 <div class="container my-3">
     <div class="row my-3">
@@ -20,10 +21,10 @@
                     <img src="{{ Product.image.url }}" style="width:200px; height:200px; border:1px solid #eaeaea; padding: 0px; border-radius: 10px;" alt="{{ Product.name }}">
                 </a>
                 {% endif %}
-                <div class="card" style="width: 200px;">
+                <div class="card p-1" style="width: 200px;">
                     <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
                     <div style="display: flex; justify-content: space-between;">
-                        <span class="price" style="font-weight: 1000;">{{ Product.price }}원</span>
+                        <span class="price" style="font-weight: 500;"><strong>{{ Product.price|intcomma }}원</strong></span>
                         <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
                     </div>
                 </div>
