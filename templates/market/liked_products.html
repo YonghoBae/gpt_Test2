@@ -27,7 +27,7 @@
                     <p class="name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ Product.name }}</p>
                     <div style="display: flex; justify-content: space-between;">
                         <span class="price" style="font-weight: 500;"><strong>{{ Product.price|intcomma }}원</strong></span>
-                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date|time_since }}</span>
+                        <span class="time" style="font-size: 12px; text-align:right">{{ Product.create_date }}</span>
                     </div>
                 </div>
             </div>
