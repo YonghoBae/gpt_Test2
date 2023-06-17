@@ -5,8 +5,10 @@ app_name = 'market'
 
 urlpatterns = [
     # base_views.py
-    path('', base_views.index, name='index'),
+    path('Product/', base_views.index, name='index'),
     path('<int:product_id>/', base_views.detail, name='detail'),
+
+    path('', base_views.main, name='main'),
 
     # product_views.py
     path('Product/create/', product_views.Product_create, name='Product_create'),

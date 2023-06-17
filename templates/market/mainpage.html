@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load market_filter %}
+{% load time_since %}
+{% block content %}
+{% load static%}
+
+<style>
+    .image-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .image-container img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<div class="image-container">
+    <img src="{% static '/image/main1.jpg' %}" alt="ERROR">
+</div>
+
+<head>
+    <title>충대마켓</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .link {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>충대마켓</h1>
+        <p>누구나 이용 가능한 중고마켓 장터! 충대마켓 입니다.</p>
+        <a class="link" href="{% url 'market:index' %}">물건 보러 가기</a>
+    </div>
+</body>
+
+{% endblock %}

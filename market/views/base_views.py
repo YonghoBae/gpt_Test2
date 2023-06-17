@@ -13,6 +13,8 @@ def get_client_ip(request):  # Add this function
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+def main(request):
+    return render(request, 'market/mainpage.html')
 
 def index(request):
     page = request.GET.get('page', '1')  # 페이지
