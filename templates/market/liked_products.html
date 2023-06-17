@@ -14,8 +14,8 @@
     <h2>찜한 상품</h2>
 
     <div class="row">
-        {% if liked_product %}
-        {% for Product in liked_product %}
+        {% if liked_products %}
+        {% for product in liked_products %}
         <div class="col-3">
             <div class="item">
                 {% if Product.image %}
