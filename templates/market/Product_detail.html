@@ -1,331 +1,112 @@
 {% extends 'base.html' %}
 {% load market_filter %}
-{% load time_since %}
 {% block content %}
 
 <div class="container my-3">
     <!-- message 표시 -->
     {% if messages %}
     <div class="alert alert-danger my-3" role="alert">
-        {% for message in messages %}
+    {% for message in messages %}
         <strong>{{ message.tags }}</strong>
-        <ul>
-            <li>{{ message.message }}</li>
-        </ul>
-        {% endfor %}
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
     </div>
     {% endif %}
-
-<style>
-    table {
-        margin-left: auto;
-        margin-right: auto;
-        width: 800pt;
-        height: 250pt;
-    }
-
-    table,
-    th,
-    td {
-    }
-
-    colgroup {
-        width: 100%;
-        height: 100%;
-    }
-
-    col.col1 {
-        width: 0%;
-    }
-
-    col.col2 {
-        width: 5%;
-    }
-
-    col.col3 {
-        width: 90%;
-    }
-
-    .container {
-        max-width: 80rem;
-        margin: 0 auto;
-    }
-
-    .alert {
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    .card-body {
-        padding: 1rem;
-        height: 130pt;
-    }
-
-    .card-text {
-        margin-bottom: 1rem;
-    }
-
-    .badge {
-        font-size: 0.8rem;
-        padding: 0.25rem 0.5rem;
-    }
-
-    .my-3 {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        clear: both;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        font-size: 1.2rem;
-        border-radius: 4px;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .btn-outline-secondary {
-        color: #6c757d;
-        border-color: #6c757d;
-    }
-
-    .btn-outline-secondary:hover {
-        color: #fff;
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
-
-    .rounded-pill {
-        border-radius: 50rem;
-    }
-
-    #left-section {
-        width: 60%;
-        padding: 10px;
-        float: left;
-    }
-
-    #right-section {
-        width: 40%;
-        padding: 10px;
-        float: right;
-    }
-</style>
-
-    <p>&nbsp;</p>
-<table>
-    <colgroup>
-        <col class="col1">
-        <col class="col2">
-        <col class="col3">
-    </colgroup>
-    <tbody>
-        <tr>
-            <td rowspan="5">
-                <img src="{{ product.image.url }}" style="width: 500px; height: 500px" alt="{{ product.name }}"
-                    class="my-3">
-            </td>
-            <td rowspan="5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>
-                <h1>{{ product.name }}</h1>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <p class="border-bottom py-1">
-                    <span style="font-size: 2.5rem; font-weight: bold;">{{ Product.price|intcomma }}</span>
-                    <span style="font-size: 1.5rem;">원</span>
-                </p>
-            </td>
-        </tr>
-        <td>
-            <div class="d-flex">
-                <div>
-                    <p style="color: #C0C0C0;">♥: {{product.voter.count}} |&nbsp;</p>
+    <!-- 질문 -->
+    <h2 class="border-bottom py-2">{{ product.name }}</h2>
+    {% if product.image %}
+    <img src="{{ product.image.url }}" style="width:250px; height:250px" alt="{{ product.name }}" class="my-3">
+    {% endif %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text">{{ product.content|mark }}</div>
+                <div class="d-flex justify-content-end">
+                    {% if product.modify_date %}
+                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ product.modify_date }}</div>
                 </div>
-                <div>
-
-                    <div>
-                        <div style="color: #C0C0C0;">▶:{{ product.create_date|time_since }}</div>
-                    </div>
-                                {% if Product.view_count > 0 %}
-                                    <div style="color: #C0C0C0;">조회수:{{ Product.view_count }}</span>
-                                {% endif %}
-                            </div>
-
-        <tr>
-            <td>
-<p>&nbsp;</p><p>&nbsp;</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="my-3" style="display: flex; align-items: center;">
-                    <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' product.id %}"
-                        class="recommend btn btn-sm btn-outline-secondary"
-                        style="background-color: blue; color: white; font-size: 2rem; font-weight: bold; padding: 0.5rem 1rem; padding-left: 4rem; padding-right: 4rem;">
-                        ♥찜
-                    </a>
-                     &nbsp; &nbsp;
-                                        <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' product.id %}"
-                        class="recommend btn btn-sm btn-outline-secondary"
-                        style=" font-size: 2rem; font-weight: bold; padding: 0.5rem 1rem; padding-left: 4rem; padding-right: 4rem;">
-                        충톡
-                    </a>
-
+                {% endif %}
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{ product.seller.username }}</div>
+                    <div>{{ product.create_date }}</div>
                 </div>
-                <div class="my-3" style="margin-left: auto;">
-                        {% if request.user == comment.author %}
-                        <a href="{% url 'market:Product_modify' product.id  %}"
-                            class="btn btn-sm btn-outline-secondary">수정</a>
-                        <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                            data-uri="{% url 'market:Product_delete' product.id  %}">삭제</a>
-                        {% endif %}
-                    </div>
-            </td>
-        </tr>
-        <tr>
-        </tr>
-    </tbody>
-</table>
-
-
-
-
-
-<!-- 답변 -->
-
-<hr style="border: solid 1px black;">
-
-<div class="row">
-    <div class="col-md-4">
-        <h5 class="border-bottom py-2">상품설명</h5>
-        <div class="card my-3 left-section">
-            <div class="card-body">
-                <div class="card-text">
-                    <h6 style="font-weight: bold;">{{ product.content|mark }}</h6>
-                </div>
+            </div>
+            <div class="my-3">
+                <a href="javascript:void(0)" data-uri="{% url 'market:Product_vote' product.id  %}"
+                    class="recommend btn btn-sm btn-outline-secondary"> 추천
+                     <span class="badge rounded-pill bg-success">{{product.voter.count}}</span>
+                </a>
+                {% if request.user == product.seller %}
+                <a href="{% url 'market:Product_modify' product.id  %}"
+                   class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                   data-uri="{% url 'market:Product_delete' product.id  %}">삭제</a>
+                {% endif %}
             </div>
         </div>
     </div>
-
-    <div class="col-md-8">
-        <h5 class="border-bottom py-2">{{product.comment_set.count}}개의 답변이 있습니다.</h5>
-        <div class="answer-container">
-            {% for comment in  product.comment_set.all %}
-            <a id="comment_{{ comment.id }}"></a>
-            <div class="answer-card card my-3">
-                <div class="card-body">
-                    <div class="answer-content card-text">
-                        <span class="answer-author" style="font-weight: bold;">[ {{ comment.buyer.username }} ]</span>{{ comment.content|mark }}
-                    </div>
-                    <hr>
-                    <div class="answer-meta">
-                        {% if product.modify_date %}
-                        <div class="badge bg-light text-dark p-2 text-start mx-3" style="border: 0.1px solid #000;font-size: 1.5rem;">
-                            <div>수정됨: {{ comment.modify_date }}</div>
-                        </div>
-                        {% else %}
-                        <div class="badge bg-light text-dark p-2 text-start mx-3" style="border: 0.5px solid #000;font-size: 1.5rem;">
-                            <div>{{ comment.create_date }}</div>
-                        </div>
-                        {% endif %}
-                        <div class="answer-buttons my-3">
-                            <a href="javascript:void(0)" data-uri="{% url 'market:Comment_vote' comment.id  %}"
-                                class="recommend btn btn-sm btn-outline-secondary"> 추천
-                                <span class="badge rounded-pill bg-success">{{comment.voter.count}}</span>
-                            </a>
-                            {% if request.user == comment.author %}
-                            <a href="{% url 'market:Comment_modify' comment.id  %}"
-                                class="btn btn-sm btn-outline-secondary">수정</a>
-                            <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                                data-uri="{% url 'market:Comment_delete' comment.id  %}">삭제</a>
-                            {% endif %}
-                        </div>
-                    </div>
+    <!-- 답변 -->
+    <h5 class="border-bottom my-3 py-2">{{product.comment_set.count}}개의 답변이 있습니다.</h5>
+    {% for comment in product.comment_set.all %}
+    <a id="comment_{{ comment.id }}"></a>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
+            <div class="d-flex justify-content-end">
+                 {% if comment.modify_date %}
+                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ comment.modify_date }}</div>
+                </div>
+                {% endif %}
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{comment.buyer.username}}</div>
+                    <div>{{ comment.create_date }}</div>
                 </div>
             </div>
+            <div class="my-3">
+                <a href="javascript:void(0)" data-uri="{% url 'market:Comment_vote' comment.id  %}"
+                    class="recommend btn btn-sm btn-outline-secondary"> 추천
+                     <span class="badge rounded-pill bg-success">{{comment.voter.count}}</span>
+                </a>
+                {% if request.user == comment.buyer %}
+                <a href="{% url 'market:Comment_modify' comment.id  %}"
+                   class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="#" class="delete btn btn-sm btn-outline-secondary "
+                   data-uri="{% url 'market:Comment_delete' comment.id  %}">삭제</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- 답변 등록 -->
+    <form action="{% url 'market:Comment_create' product.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
-    </div>
-</div>
-
-
-<style>
-    .answer-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .answer-card {
-        flex-basis: 100%; /* 원하는 카드 너비로 조정 */
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background-color: #f9f9f9;
-        overflow: auto; /* 스크롤 생성 */
-    }
-
-    .answer-content {
-        margin-bottom: 10px;
-        max-height: 200px;
-    }
-
-    .answer-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .answer-meta .badge {
-        font-size: 0.8rem;
-        padding: 0.25rem 0.5rem;
-    }
-
-    .answer-buttons {
-        display: flex;
-    }
-
-    .answer-buttons .btn {
-        margin-right: 5px;
-    }
-
-    .left-section {
-        padding: 10px;
-    }
-
-    .right-section {
-        padding: 10px;
-    }
-</style>
-
-
-
-
-<form action="{% url 'market:Comment_create' product.id %}" method="post" class="my-3">
-    {% csrf_token %}
-    {% include "form_errors.html" %}
-    <div class="mb-3">
-        <label for="content" class="form-label">답변내용</label>
-        <textarea {% if not user.is_authenticated %}disabled{% endif %}
-                  name="content" id="content" class="form-control" rows="10"></textarea>
-    </div>
-    <input type="submit" value="답변등록" class="btn btn-primary">
-</form>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="mb-3">
+            <label for="content" class="form-label">답변내용</label>
+            <textarea {% if not user.is_authenticated %}disabled{% endif %}
+              name="content" id="content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary">
+    </form>
 </div>
 {% endblock %}
 {% block script %}
-
-
 <script type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
