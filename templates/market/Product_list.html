@@ -10,9 +10,30 @@
         </div>
     </div>
     <hr>
-    <h2>최근 올라온 상품</h2>
-
+    <h2>
+        {% if category %}
+        {{ category.description }}
+        {% else %}
+        최근 올라온 상품
+        {% endif %}
+    </h2>
     <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-2 p-2">
+            <!-- Sidebar  -->
+            <nav id="sidebar" class="border-top border-secondary">
+                <div class="list-group">
+                    {% for cat in category_list %}
+                        {% if cat == category %}
+                            <a class="rounded-0 list-group-item list-group-item-action list-group-item-light active"
+                               href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                        {% else %}
+                            <a class="rounded-0 list-group-item list-group-item-action list-group-item-light"
+                               href="{{ cat.get_absolute_url }}">{{ cat.description }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </nav>
+        </div>
         {% if Product_list %}
         {% for Product in Product_list %}
         <div class="col-3">

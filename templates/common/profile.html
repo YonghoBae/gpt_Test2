@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            {% if profile_user.profile.profile_photo %}
+            <img class="rounded-circle" src="{{profile_user.profile.profile_photo.url}}" width="200"> <br>
+            {% else %}
+            <img class="rounded-circle" src="{% static '/image/default.jpeg' %}" width="200"> <br>
+            {% endif %}
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+            {% if profile_user.profile.nickname %}
+            <h2>{{profile_user.profile.nickname}}</h2>
+            {% endif %}
+            <h4 class="py-5">{{profile_user.username}}</h4>
+            {% if user == profile_user %}   <!-- 로그인한 사용자와 profile_user(프로필 소유자)가 일치할 때만 프로필 편집이 가능하도록 함 -->
+            <a href="#">
+                <button type="button" class="btn btn-primary">프로필 편집</button></a></h2>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

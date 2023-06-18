@@ -4,11 +4,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from ..forms import ProductForm
-from ..models import Product
+from ..models import Product, Category
 
 
 @login_required(login_url='common:login')
 def Product_create(request):
+    category_list = Category.objects.all()
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -20,7 +22,7 @@ def Product_create(request):
             return redirect('market:index')
     else:
         form = ProductForm()
-    context = {'form': form}
+    context = {'form': form, 'category_list': category_list}
     return render(request, 'market/Product_form.html', context)
 
 
@@ -39,7 +41,7 @@ def Product_modify(request, product_id):
             return redirect('market:detail', product_id=product.id)
     else:
         form = ProductForm(instance=product)
-    context = {'form': form}
+    context = {'form': form, 'category':product.category}
     return render(request, 'market/Product_form.html', context)
 
 

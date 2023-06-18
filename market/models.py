@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
+from django.conf import settings
+
 
 class Category(models.Model):
     name=models.CharField(max_length=20,unique=True)
@@ -22,6 +25,7 @@ class Product(models.Model):
     view_count = models.IntegerField(default=0)  # 조회수 필드
     price = models.IntegerField() #가격 필드
     image = models.ImageField(upload_to='images/', null=True, blank=True)  # 이미지 필드
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name='category_question')
 
     def __str__(self):
         return self.subject
@@ -42,3 +46,8 @@ class ProductCount(models.Model):
 
     def __unicode__(self):
         return self.ip
+
+
+class Profile(models.Model):
+    user=models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    profile_photo=models.ImageField(blank=True)

@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('market/', include('market.urls')),
     path('common/', include('common.urls')),
-    path('', base_views.index, name='index'),  # '/' 에 해당되는 path
+    path('', base_views.main, name='index'),  # '/' 에 해당되는 path
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # media 경로 추가

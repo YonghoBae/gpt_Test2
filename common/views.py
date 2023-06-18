@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from common.forms import UserForm
-
+from django.contrib.auth.models import User
+from django.views.generic.detail import DetailView
 
 def signup(request):
     if request.method == "POST":
@@ -18,4 +19,7 @@ def signup(request):
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
 
-
+class ProfileView(DetailView):
+    context_object_name="profile_user"
+    model=User
+    template_name='common/profile.html'
