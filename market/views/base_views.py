@@ -28,6 +28,9 @@ def index(request):
     context = {'Product_list': page_obj, 'page': page, 'kw': kw}
     return render(request, 'market/Product_list.html', context)
 
+def main(request):
+    return render(request, 'market/mainpage.html')
+
 
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
